@@ -21,10 +21,8 @@ def print_menu():
     Print the items in the menu dictionary.
     """
     print("Our menu:")
-    for item in cupcake_menu:
+    for item in menu.keys():
         print("- \"%s\" (KD %s)" % (item, menu[item]))
-
-
 
 
 def print_originals():
@@ -33,7 +31,7 @@ def print_originals():
     """
     print("Our original flavor cupcakes (KD %s each):" % original_price)
     for item in original_flavors:
-    print("- \"%s\"" % item)
+        print("- \"%s\"" % item)
 
 
 def print_signatures():
@@ -63,9 +61,9 @@ def get_order():
     """
     Repeatedly ask customer for order until they end their order by typing "Exit".
     """
-    order_list = []
-    order = input("What's your order? (Enter the exact spelling of the item you want. Type 'Exit' to end your order.)\n")
-    while order.lowercase() != "exit":
+    order = input(
+        "What's your order? (Enter the exact spelling of the item you want. Type 'Exit' to end your order.)\n")
+    while order.lower() != "exit":
         if is_valid_order(order):
             order_list.append(order)
         order = input()
@@ -83,12 +81,12 @@ def accept_credit_card(total):
         return False
 
 
-def get_total_price(order_list):
+def get_total_price(order_list_arg):
     """
     Calculate and return total price of the order.
     """
     total = 0
-    for order in order_list:
+    for order in order_list_arg:
         order = order.lower()
         if order in menu:
             total += menu[order]
@@ -100,17 +98,17 @@ def get_total_price(order_list):
     return total
 
 
-def print_order(order_list):
+def print_order(order_list_arg):
     """
     Print the order of the customer.
     """
     print()
     print("Your order is: ")
-    for order in order_list:
+    for order in order_list_arg:
         print("- %s " % order)
 
     print()
-    price = get_total_price(order_list)
+    price = get_total_price(order_list_arg)
     print("That'll be KD %s" % price)
     if accept_credit_card(price):
         print("This order is eligible for credit card payment.")
